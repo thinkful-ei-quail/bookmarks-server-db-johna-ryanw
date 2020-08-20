@@ -1,22 +1,18 @@
 /* eslint-disable eqeqeq */
 const express = require('express');
 const logger = require('../logger');
-const { v4: uuid } = require('uuid');
 
-const { bookmarks } = require('../store');
-const { restart } = require('nodemon');
 const validateBearerToken = require('../validateBearer');
+const BookmarksService = require('../bookmarks-service');
 
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
 
-bookmarkRouter
-  .route('/bookmark')
-  .get((req, res) => {
-    // implementation logic here
-    res.json(bookmarks);
-  })
-  .post(bodyParser, validateBearerToken, (req, res) => {
+bookmarkRouter.route('/bookmark').get((req, res, next) => {
+  // implementation logic here
+  // res.json(bookmarks);
+});
+/* .post(bodyParser, validateBearerToken, (req, res) => {
     //implementation logic here
     const { title, url, rating, desc = '' } = req.body;
 
@@ -78,23 +74,21 @@ bookmarkRouter
       .status(201)
       .location(`http://localhost:8000/bookmark/${id}`)
       .json(newBookmark);
-  });
+  }); */
 
-bookmarkRouter
-  .route('/bookmark/:id')
-  .get((req, res) => {
-    //implementation logic here
-    const { id } = req.params;
-    const bookmark = bookmarks.find((bm) => bm.id == id);
+bookmarkRouter.route('/bookmark/:id').get((req, res) => {
+  //implementation logic here
+  const { id } = req.params;
+  const bookmark = bookmarks.find((bm) => bm.id == id);
 
-    // validate we found a bookmark
-    if (!bookmark) {
-      logger.error(`Bookmark with id ${id} not found.`);
-      return res.status(400).send('Bookmark not found');
-    }
-    res.json(bookmark);
-  })
-  .delete(validateBearerToken, (req, res) => {
+  // validate we found a bookmark
+  if (!bookmark) {
+    logger.error(`Bookmark with id ${id} not found.`);
+    return res.status(400).send('Bookmark not found');
+  }
+  res.json(bookmark);
+});
+/* .delete(validateBearerToken, (req, res) => {
     // implementation logic here
     const { id } = req.params;
     const index = bookmarks.findIndex((b) => b.id === id);
@@ -106,6 +100,6 @@ bookmarkRouter
     bookmarks.splice(index, 1);
     res.status(204).end();
     console.log(index, bookmarks);
-  });
+  }); */
 
 module.exports = bookmarkRouter;

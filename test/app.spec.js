@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable no-undef */
 const app = require('../src/app');
 const store = require('../src/store');
 const supertest = require('supertest');
@@ -13,14 +15,12 @@ describe('Bookmarks', () => {
   });
 
   describe('Unauthorized requests', () => {
-
     it('responds with 401 Unauthorized for POST /bookmark', () => {
       return supertest(app)
         .post('/bookmark')
         .send({ title: 'test-title', url: 'http://some.thing.com', rating: 1 })
         .expect(401, { error: 'Unauthorized request' });
     });
-
 
     it('responds with 401 Unauthorized for DELETE /bookmark/:id', () => {
       const aBookmark = store.bookmarks[1];
@@ -59,15 +59,15 @@ describe('Bookmarks', () => {
   describe('DELETE /bookmark/:id', () => {
     it('removes the bookmark by ID from the store', () => {
       const secondBookmark = store.bookmarks[1];
-      const expectedBookmarks = store.bookmarks.filter(s => s.id !== secondBookmark.id);
+      const expectedBookmarks = store.bookmarks.filter(
+        (s) => s.id !== secondBookmark.id
+      );
       return supertest(app)
         .delete(`/bookmark/${secondBookmark.id}`)
         .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
         .expect(204)
         .then((res) => {
-          supertest(app)
-            .get('/bookmark')
-            .expect(200, expectedBookmarks);
+          supertest(app).get('/bookmark').expect(200, expectedBookmarks);
         });
     });
 
@@ -155,14 +155,14 @@ describe('Bookmarks', () => {
         .send(newBookmark)
         .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
         .expect(201)
-        .expect(res => {
+        .expect((res) => {
           expect(res.body.title).to.eql(newBookmark.title);
           expect(res.body.url).to.eql(newBookmark.url);
           expect(res.body.desc).to.eql(newBookmark.desc);
           expect(res.body.rating).to.eql(newBookmark.rating);
           expect(res.body.id).to.be.a('string');
         })
-        .then(res => {
+        .then((res) => {
           supertest(app)
             .get(`/bookmark/${res.body.id}`)
             .expect(200, newBookmark);

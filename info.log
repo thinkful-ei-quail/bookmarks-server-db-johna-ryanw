@@ -134,3 +134,19 @@
 {"message":"New bookmark with 37fa808b-dc80-4916-800f-292aba0a2beb created","level":"info"}
 {"message":"url must be valid","level":"error"}
 {"message":"New bookmark with b4b897ec-18d5-4a44-bf22-c6bb7c30a6f1 created","level":"info"}
+{"message":"Bookmark with id doesnt-exist not found.","level":"error"}
+{"message":"Invalid delete request","level":"error"}
+{"message":"Title is required","level":"error"}
+{"message":"URL is required","level":"error"}
+{"message":"Rating is required","level":"error"}
+{"message":"rating must be a number","level":"error"}
+{"message":"url must be valid","level":"error"}
+{"message":"New bookmark with 7f44f520-0151-4c37-a8d1-273312d84d90 created","level":"info"}
+{"message":"Bookmark with id doesnt-exist not found.","level":"error"}
+{"message":"Invalid delete request","level":"error"}
+{"message":"Title is required","level":"error"}
+{"message":"URL is required","level":"error"}
+{"message":"Rating is required","level":"error"}
+{"message":"rating must be a number","level":"error"}
+{"message":"url must be valid","level":"error"}
+{"message":"New bookmark with fb0fe676-3deb-4c8e-9c4b-e6f1cafa48ff created","level":"info"}
