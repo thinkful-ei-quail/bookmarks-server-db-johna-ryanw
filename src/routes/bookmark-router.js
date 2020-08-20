@@ -8,9 +8,12 @@ const BookmarksService = require('../bookmarks-service');
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
 
-bookmarkRouter.route('/bookmark').get((req, res, next) => {
-  // implementation logic here
-  // res.json(bookmarks);
+bookmarkRouter.route('/').get((req, res, next) => {
+  BookmarksService.getAllBookmarks(req.app.get('db'))
+    .then((bookmarks) => {
+      res.json(bookmarks);
+    })
+    .catch(next);
 });
 /* .post(bodyParser, validateBearerToken, (req, res) => {
     //implementation logic here
