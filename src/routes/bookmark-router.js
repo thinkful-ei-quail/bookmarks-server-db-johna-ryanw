@@ -79,19 +79,23 @@ bookmarkRouter.route('/').get((req, res, next) => {
       .json(newBookmark);
   }); */
 
-bookmarkRouter.route('/bookmark/:id').get((req, res) => {
-  //implementation logic here
-  const { id } = req.params;
-  const bookmark = bookmarks.find((bm) => bm.id == id);
+bookmarkRouter
+  .route('/bookmark/:id')
+  .get((req, res) => {
+    //implementation logic here
+    const { id } = req.params;
+    const bookmark = BookmarksService.getById(req.app.get('db'), id).find(
+      (bm) => bm.id == id
+    );
 
-  // validate we found a bookmark
-  if (!bookmark) {
-    logger.error(`Bookmark with id ${id} not found.`);
-    return res.status(400).send('Bookmark not found');
-  }
-  res.json(bookmark);
-});
-/* .delete(validateBearerToken, (req, res) => {
+    // validate we found a bookmark
+    if (!bookmark) {
+      logger.error(`Bookmark with id ${id} not found.`);
+      return res.status(400).send('Bookmark not found');
+    }
+    res.json(bookmark);
+  })
+  .delete(validateBearerToken, (req, res) => {
     // implementation logic here
     const { id } = req.params;
     const index = bookmarks.findIndex((b) => b.id === id);
@@ -103,6 +107,6 @@ bookmarkRouter.route('/bookmark/:id').get((req, res) => {
     bookmarks.splice(index, 1);
     res.status(204).end();
     console.log(index, bookmarks);
-  }); */
+  });
 
 module.exports = bookmarkRouter;
